@@ -3,7 +3,7 @@ import { showBooks } from '../pages/books';
 
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
-    // TODO: CLICK EVENT FOR DELETING A BOOK
+    // CLICK EVENT FOR DELETING A BOOK
     if (e.target.id.includes('delete-book')) {
       // eslint-disable-next-line no-alert
       if (window.confirm('Want to delete?')) {
