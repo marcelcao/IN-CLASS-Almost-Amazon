@@ -23,7 +23,23 @@ const getBooks = () => new Promise((resolve, reject) => {
 });
 
 // TODO: DELETE BOOK
-const deleteBook = () => {};
+const deleteBook = (firebaseKey) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/books/${firebaseKey}.json`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data) {
+        resolve(Object.values(data));
+      } else {
+        resolve([]);
+      }
+    })
+    .catch(reject);
+});
 
 // TODO: GET SINGLE BOOK
 const getSingleBook = () => {};
@@ -34,7 +50,7 @@ const createBook = () => {};
 // TODO: UPDATE BOOK
 const updateBook = () => {};
 
-// TODO: FILTER BOOKS ON SALE
+// FILTER BOOKS ON SALE
 const booksOnSale = () => new Promise((resolve, reject) => {
   fetch(`${endpoint}/books.json?orderBy="sale"&equalTo=true`, {
     method: 'GET',
