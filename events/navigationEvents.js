@@ -1,6 +1,8 @@
 import { signOut } from '../utils/auth';
 import { booksOnSale, getBooks } from '../api/bookData';
 import { showBooks } from '../pages/books';
+import { faveAuthors, getAuthors } from '../api/authorData';
+import { showAuthors, emptyAuthors } from '../pages/authors';
 
 // navigation events
 const navigationEvents = () => {
@@ -22,12 +24,25 @@ const navigationEvents = () => {
     console.warn('CLICKED ALL BOOKS');
   });
 
-  // FIXME: STUDENTS Create an event listener for the Authors
+  // Create an event listener for the Authors
   // 1. When a user clicks the authors link, make a call to firebase to get all authors
   // 2. Convert the response to an array because that is what the makeAuthors function is expecting
   // 3. If the array is empty because there are no authors, make sure to use the emptyAuthor function
   document.querySelector('#authors').addEventListener('click', () => {
+    getAuthors().then((authors) => {
+      if (authors) {
+        showAuthors(authors);
+      } else {
+        emptyAuthors();
+      }
+    });
     console.warn('CLICKED AUTHORS');
+  });
+
+  // FILTER FAVORITE AUTHORS
+  document.querySelector('#faveAuthors').addEventListener('click', () => {
+    faveAuthors().then((authors) => showAuthors(authors));
+    console.warn('CLICKED FAVE AUTHORS');
   });
 
   // STRETCH: SEARCH
