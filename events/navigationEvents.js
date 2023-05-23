@@ -1,5 +1,5 @@
 import { signOut } from '../utils/auth';
-import { getBooks } from '../api/bookData';
+import { booksOnSale, getBooks } from '../api/bookData';
 import { showBooks } from '../pages/books';
 
 // navigation events
@@ -8,12 +8,13 @@ const navigationEvents = () => {
   document.querySelector('#logout-button')
     .addEventListener('click', signOut);
 
-  // TODO: BOOKS ON SALE
+  // BOOKS ON SALE
   document.querySelector('#sale-books').addEventListener('click', () => {
+    booksOnSale().then((books) => showBooks(books));
     console.warn('CLICKED SALE BOOKS');
   });
 
-  // TODO: ALL BOOKS
+  // ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
     getBooks().then((books) => showBooks(books));
     // learning notes on line 18: getBooks is the promise function for the books data. books is passed like 'taco'. it's an identity function //
