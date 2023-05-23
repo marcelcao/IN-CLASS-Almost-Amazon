@@ -1,4 +1,6 @@
 import { signOut } from '../utils/auth';
+import { getBooks } from '../api/bookData';
+import { showBooks } from '../pages/books';
 
 // navigation events
 const navigationEvents = () => {
@@ -13,6 +15,9 @@ const navigationEvents = () => {
 
   // TODO: ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
+    getBooks().then((books) => showBooks(books));
+    // learning notes on line 18: getBooks is the promise function for the books data. books is passed like 'taco'. it's an identity function //
+    // identity functions just returns what it receives //
     console.warn('CLICKED ALL BOOKS');
   });
 
