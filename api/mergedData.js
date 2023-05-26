@@ -27,7 +27,7 @@ export default getBookDetails;
 // for merged promises - getting author details
 const getAuthorDetails = (firebaseKey) => new Promise((resolve, reject) => {
   getSingleAuthor(firebaseKey).then((authorObject) => {
-    getAuthorBooks(firebaseKey).then((authorBooks) => resolve({ ...authorObject, authorBooks }));
+    getAuthorBooks(firebaseKey).then((booksArray) => resolve({ ...authorObject, booksArray }));
   }).catch(reject);
 });
 
