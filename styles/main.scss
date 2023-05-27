@@ -85,7 +85,22 @@ body {
 
 #view {
   width: 90%;
+  display: flex;
+  flex-flow: column;
+  text-align: left;
   margin: auto;
+  justify-content: center;
+
+  .card-authorbooks {
+    width: 300px;
+    margin: 5px;
+    background-color: white;
+
+    .sale-badge {
+      font-size: 1em;
+      background-color: blue;
+    }
+  }
 
   .details {
     min-width: 50%;
