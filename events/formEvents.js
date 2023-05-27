@@ -57,7 +57,7 @@ const formEvents = () => {
       createAuthor(payload).then(({ name }) => {
         const patchPayload = { firebaseKey: name };
 
-        updateBook(patchPayload).then(() => {
+        updateAuthor(patchPayload).then(() => {
           getAuthors().then(showAuthors);
         });
       });

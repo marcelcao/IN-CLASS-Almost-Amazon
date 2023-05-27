@@ -1,5 +1,5 @@
-import { getAuthorBooks, getSingleAuthor } from './authorData';
-import { getSingleBook } from './bookData';
+import { deleteSingleAuthor, getAuthorBooks, getSingleAuthor } from './authorData';
+import { deleteBook, getSingleBook } from './bookData';
 
 // for merged promises - getting book details
 const getBookDetails = (firebaseKey) => new Promise((resolve, reject) => {
@@ -8,8 +8,6 @@ const getBookDetails = (firebaseKey) => new Promise((resolve, reject) => {
       .then((authorObject) => resolve({ ...bookObject, authorObject }));
   }).catch(reject);
 });
-
-export default getBookDetails;
 
 // line 6 returns single book per its firebase key but also takes that book and then its calling for a promise object which is the bookObject
 // line 7 - singleAuthor is nested in singlebook in order for us to be able to use the book object and dot notate the author id. the author id is the key value pair we can use in order to fitler through the book details
@@ -31,11 +29,22 @@ const getAuthorDetails = (firebaseKey) => new Promise((resolve, reject) => {
   }).catch(reject);
 });
 
-export {
-  getBookDetails, getAuthorDetails
-};
-
 // translating the getAuthorDetails function:
 // to get the authordetails, we need to call out our getsingle author function to get the specific author. the firebase key is the arguement that is passed because this is the key value that makes the author a specific author. then a promise object is passed called the author object which will contain all the key value pairs of the specific author called out.
 // then a function is nested in that calling out the get author books function. the get author books function has a filter that takes the author id of the book and matching it with the same firebase key because the author id in books is the firebase key in authors.
 // then authorbooks becomes a promise object which contains all the key value pairs from authorObject (spread operator) and all of the authors books per the object.values data call out on the getAuthorBooks function.
+
+// CLEAN UP CODE - HOW TO AVOID ERRORS WHEN DELETING AUTHOR IN BOOK VIEW
+const deleteAuthorBooksRelationship = (firebaseKey) => new Promise((resolve, reject) => {
+  getAuthorBooks(firebaseKey).then((authorBooksArray) => {
+    const deleteBookPromises = authorBooksArray.map((book) => deleteBook(book.firebaseKey));
+
+    Promise.all(deleteBookPromises).then(() => {
+      deleteSingleAuthor(firebaseKey).then(resolve);
+    });
+  }).catch(reject);
+});
+
+export {
+  getBookDetails, getAuthorDetails, deleteAuthorBooksRelationship
+};

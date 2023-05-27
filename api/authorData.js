@@ -31,7 +31,13 @@ const createAuthor = (payload) => new Promise((resolve, reject) => {
     body: JSON.stringify(payload),
   })
     .then((response) => response.json())
-    .then((data) => resolve(data))
+    .then((data) => {
+      if (data) {
+        resolve((data));
+      } else {
+        resolve([]);
+      }
+    })
     .catch(reject);
 });
 
