@@ -15,7 +15,7 @@ const formEvents = (user) => {
         price: document.querySelector('#price').value,
         author_id: document.querySelector('#author_id').value,
         sale: document.querySelector('#sale').checked,
-        uid: user.id
+        uid: user.uid
       };
 
       createBook(payload).then(({ name }) => {
