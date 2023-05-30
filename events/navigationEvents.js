@@ -5,20 +5,20 @@ import { faveAuthors, getAuthors } from '../api/authorData';
 import { showAuthors, emptyAuthors } from '../pages/authors';
 
 // navigation events
-const navigationEvents = () => {
+const navigationEvents = (user) => {
   // LOGOUT BUTTON
   document.querySelector('#logout-button')
     .addEventListener('click', signOut);
 
   // BOOKS ON SALE
   document.querySelector('#sale-books').addEventListener('click', () => {
-    booksOnSale().then((books) => showBooks(books));
+    booksOnSale(user.uid).then((books) => showBooks(books));
     console.warn('CLICKED SALE BOOKS');
   });
 
   // ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
-    getBooks().then((books) => showBooks(books));
+    getBooks(user.uid).then((books) => showBooks(books));
     // learning notes on line 18: getBooks is the promise function for the books data. books is passed like 'taco'. it's an identity function //
     // identity functions just returns what it receives //
     console.warn('CLICKED ALL BOOKS');
@@ -29,7 +29,7 @@ const navigationEvents = () => {
   // 2. Convert the response to an array because that is what the makeAuthors function is expecting
   // 3. If the array is empty because there are no authors, make sure to use the emptyAuthor function
   document.querySelector('#authors').addEventListener('click', () => {
-    getAuthors().then((authors) => {
+    getAuthors(user.uid).then((authors) => {
       if (authors) {
         showAuthors(authors);
       } else {
@@ -41,7 +41,7 @@ const navigationEvents = () => {
 
   // FILTER FAVORITE AUTHORS
   document.querySelector('#faveAuthors').addEventListener('click', () => {
-    faveAuthors().then((authors) => showAuthors(authors));
+    faveAuthors(user.uid).then((authors) => showAuthors(authors));
     console.warn('CLICKED FAVE AUTHORS');
   });
 
