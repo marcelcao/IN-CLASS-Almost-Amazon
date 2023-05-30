@@ -15,6 +15,7 @@ const formEvents = (user) => {
         price: document.querySelector('#price').value,
         author_id: document.querySelector('#author_id').value,
         sale: document.querySelector('#sale').checked,
+        uid: user.id
       };
 
       createBook(payload).then(({ name }) => {
@@ -38,6 +39,7 @@ const formEvents = (user) => {
         author_id: document.querySelector('#author_id').value,
         sale: document.querySelector('#sale').checked,
         firebaseKey,
+        uid: user.id
       };
       updateBook(payload).then(() => {
         getBooks(user.uid).then(showBooks);
@@ -72,6 +74,7 @@ const formEvents = (user) => {
         last_name: document.querySelector('#last_name').value,
         email: document.querySelector('#email').value,
         firebaseKey,
+        uid: user.id
       };
       updateAuthor(payload).then(() => {
         getAuthors(user.uid).then(showAuthors);

@@ -101,8 +101,8 @@ const getAuthorBooks = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 // FILTER FAVE AUTHORS
-const faveAuthors = (uid) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/authors.json?orderBy="uid"&equalTo="${uid}"`, {
+const faveAuthors = () => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/authors.json?orderBy="favorite"&equalTo=true`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
