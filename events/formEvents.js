@@ -39,7 +39,7 @@ const formEvents = (user) => {
         author_id: document.querySelector('#author_id').value,
         sale: document.querySelector('#sale').checked,
         firebaseKey,
-        uid: user.id
+        uid: user.uid
       };
       updateBook(payload).then(() => {
         getBooks(user.uid).then(showBooks);
@@ -74,7 +74,7 @@ const formEvents = (user) => {
         last_name: document.querySelector('#last_name').value,
         email: document.querySelector('#email').value,
         firebaseKey,
-        uid: user.id
+        uid: user.uid
       };
       updateAuthor(payload).then(() => {
         getAuthors(user.uid).then(showAuthors);
